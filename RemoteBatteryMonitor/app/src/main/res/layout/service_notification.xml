@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:gravity="center"
+	android:background="@drawable/image_1">
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:text="Remote Battery Monitor"
+		android:layout_width="match_parent"
+		android:textColor="#32b5e3"
+		android:gravity="center"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:scaleX="1.6"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:text="Text"
+		android:layout_width="match_parent"
+		android:gravity="center"
+		android:id="@+id/servicenotificationTextView1"
+		android:textColor="#32b5e3"
+		android:scaleX="1.6"/>
+
+</LinearLayout>
+

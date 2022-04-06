@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:gravity="center"
+	android:orientation="vertical"
+	android:background="@drawable/image_1">
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/mainTextView1"
+		android:inputType="textMultiLine"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textStyle="bold"
+		android:textColor="#32b5e3"
+		android:layout_margin="10dp"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textStyle="bold"
+		android:textColor="#32b5e3"
+		android:id="@+id/mainTextView2"
+		android:text="Not Connected"
+		android:layout_margin="10dp"/>
+		
+	<Button
+		android:layout_height="wrap_content"
+		android:text="Stop Service"
+		android:layout_width="250dp"
+		android:layout_margin="10dp"
+		android:textStyle="bold"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="#32b5e3"
+		android:id="@+id/mainButton1"
+		android:onClick="onButtonClick"/>
+
+	<Switch
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="Start At Boot"
+		android:textStyle="bold"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="#32b5e3"
+		android:layout_margin="10dp"
+		android:id="@+id/mainSwitch1"/>
+
+</LinearLayout>
+
