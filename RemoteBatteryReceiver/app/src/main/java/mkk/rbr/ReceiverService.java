@@ -88,7 +88,6 @@ public class ReceiverService extends Service
 		
 		@Override
 		public void run() {
-
 			try {
 				socket = getSocket(SERVER_IP, SERVER_PORT);
 				if(socket!=null){
@@ -97,6 +96,7 @@ public class ReceiverService extends Service
 					return;
 				}
 				}else{
+					
 					try
 					{
 						Thread.sleep(1000);
@@ -115,90 +115,81 @@ public class ReceiverService extends Service
 
 	class Thread4 implements Runnable
 	{
-
+		private Notification notification;
+		Context ct;
+		String message;
+		
 		@Override
-		public void run() {
-			System.out.println("mkk_tag t4 "+bl);
-			while (bl) {			
-				try{
+		public void run() 
+		{
+			while (bl)
+			{			
+				try
+				{
 					input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					final String message = input.readLine();
-					if (message == null) {
+					if (message == null)
+					{
+						this.createNotification(0x7f020010);
+						notifyMan.notify(3000, notification);
 						Thread3 = new Thread(new Thread3());
 						Thread3.start();
 						return;							
 					} else {
-						new Printout(message);						
+						ct = getApplicationContext();
+						String lvl = message.substring(0, message.lastIndexOf("."));
+						int bat = Integer.parseInt(lvl);
+						if(message.contains("Not")){
+
+							if(bat>=100){
+								this.createNotification(0x7f020007);
+							}else if(bat>=90){
+								this.createNotification(0x7f020006);
+							}else if(bat>=75){
+								this.createNotification(0x7f020005);
+							}else if(bat>=60){
+								this.createNotification(0x7f020004);
+							}else if(bat>=49){
+								this.createNotification(0x7f020003);
+							}else if(bat>=35){
+								this.createNotification(0x7f020002);
+							}else if(bat>=15){
+								this.createNotification(0x7f020001);
+							}else if(bat>=00){
+								this.createNotification(0x7f020000);
+							}else{
+								this.createNotification(0x7f020010);
+							}
+						}else{
+
+							if(bat>=100){
+								this.createNotification(0x7f02000f);
+							}else if(bat>=90){
+								this.createNotification(0x7f02000e);
+							}else if(bat>=75){
+								this.createNotification(0x7f02000d);
+							}else if(bat>=60){
+								this.createNotification(0x7f02000c);
+							}else if(bat>=49){
+								this.createNotification(0x7f02000b);
+							}else if(bat>=35){
+								this.createNotification(0x7f02000a);
+							}else if(bat>=15){
+								this.createNotification(0x7f020009);
+							}else if(bat>=00){
+								this.createNotification(0x7f020008);
+							}else{
+								this.createNotification(0x7f020010);
+							}
+						}
+						rV.setTextViewText(R.id.servicenotificationTextView1, message);
+						notifyMan.notify(3000, notification);
+						if(!bl){notifyMan.cancel(3000);}
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-		}
-	}
-	
-	class Printout
-	{
-		private Notification notification;
-		Context ct;
-		String message;
-		
-		private Printout(String message){
-			this.message = message;
-			run();
-		}
-		
-		public void run()
-		{
-			ct = getApplicationContext();
-			String lvl = message.substring(0, message.lastIndexOf("."));
-			int bat = Integer.parseInt(lvl);
-			if(message.contains("Not")){
-
-				if(bat>=100){
-					this.createNotification(0x7f020007);
-				}else if(bat>=90){
-					this.createNotification(0x7f020006);
-				}else if(bat>=75){
-					this.createNotification(0x7f020005);
-				}else if(bat>=60){
-					this.createNotification(0x7f020004);
-				}else if(bat>=49){
-					this.createNotification(0x7f020003);
-				}else if(bat>=35){
-					this.createNotification(0x7f020002);
-				}else if(bat>=15){
-					this.createNotification(0x7f020001);
-				}else if(bat>=00){
-					this.createNotification(0x7f020000);
-				}else{
-					this.createNotification(0x7f020010);
-				}
-			}else{
-
-				if(bat>=100){
-					this.createNotification(0x7f02000f);
-				}else if(bat>=90){
-					this.createNotification(0x7f02000e);
-				}else if(bat>=75){
-					this.createNotification(0x7f02000d);
-				}else if(bat>=60){
-					this.createNotification(0x7f02000c);
-				}else if(bat>=49){
-					this.createNotification(0x7f02000b);
-				}else if(bat>=35){
-					this.createNotification(0x7f02000a);
-				}else if(bat>=15){
-					this.createNotification(0x7f020009);
-				}else if(bat>=00){
-					this.createNotification(0x7f020008);
-				}else{
-					this.createNotification(0x7f020010);
-				}
-			}
-			rV.setTextViewText(R.id.servicenotificationTextView1, message);
-			notifyMan.notify(3000, notification);
-			if(!bl){notifyMan.cancel(3000);}
 		}
 
 		public void createNotification(int icon)
@@ -215,8 +206,7 @@ public class ReceiverService extends Service
 				.setPriority(3000).build();
 		}
 	}
-	
-	
+
 	private String getServerIpAddress() throws UnknownHostException {
 		WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
 		DhcpInfo dhc = wifiManager.getDhcpInfo();
